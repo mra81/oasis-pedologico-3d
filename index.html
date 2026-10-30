@@ -36,6 +36,8 @@
       <div id="pips" aria-hidden="true"></div>
       <div id="counter">0 / 3</div>
     </div>
+    <button id="transect-btn" type="button" title="Transecto e fatores de formação (T)"
+      aria-label="Abrir o transecto e os fatores de formação do solo">🧭</button>
     <button id="reset" type="button" title="Reiniciar progresso" aria-label="Reiniciar progresso">↺</button>
   </div>
 </div>
@@ -91,13 +93,20 @@
     <h1>OÁSIS PEDOLÓGICO 3D</h1>
     <p>Três áreas degradadas. Em cada uma, uma reação que ninguém vê a olho nu decide
        se a planta cresce, se a água infiltra e se o solo fica.</p>
+    <p class="tr-hint">As três áreas são <b>paradas de um transecto</b>: do topo à
+       encosta, clima, relevo, material e tempo mudam — e o solo responde. Aperte
+       <kbd>T</kbd> a qualquer momento para ver por quê.</p>
     <ul>
       <li><b>Andar</b> — WASD ou setas <span class="mob">/ joystick</span></li>
       <li><b>Olhar</b> — arraste com o mouse <span class="mob">ou com o dedo</span></li>
       <li><b>Analisar</b> — chegue na área e aperte <kbd>E</kbd> <span class="mob">/ toque no aviso</span></li>
       <li><b>No Visor</b> — arraste as peças; toque numa peça para ver a ficha; <kbd>H</kbd> pede dica</li>
+      <li><b>Transecto</b> — <kbd>T</kbd> abre a topossequência e os cinco fatores de formação</li>
     </ul>
-    <button id="start-btn" class="btn ok" type="button">Começar</button>
+    <div class="card-actions">
+      <button id="start-btn" class="btn ok" type="button">Começar</button>
+      <button id="start-transect" class="btn ghost" type="button">🧭 Ver o transecto</button>
+    </div>
   </div>
 </div>
 
@@ -108,12 +117,51 @@
     <div id="recap"></div>
     <p class="q">Conservar solo é conservar a reação: pH, sódio e agregação decidem se a água
       infiltra ou se o solo vai embora na enxurrada.</p>
-    <button id="debrief-close" class="btn" type="button">Voltar ao mapa</button>
+    <div class="card-actions">
+      <button id="debrief-close" class="btn" type="button">Voltar ao mapa</button>
+      <button id="debrief-transect" class="btn ghost" type="button">🧭 Rever o transecto</button>
+    </div>
   </div>
 </div>
 
 <div id="chip-tip" aria-hidden="true"></div>
 <div id="toast" role="status" aria-live="polite"></div>
+
+<!-- ================= TRANSECTO / TOPOSSEQUÊNCIA ================= -->
+<div id="transect" aria-hidden="true">
+  <div class="tr-card" role="dialog" aria-modal="true" aria-labelledby="tr-title">
+    <header class="tr-head">
+      <div class="tr-titles">
+        <span class="kicker">Transecto · topossequência · fatores de formação</span>
+        <h2 id="tr-title">Por que cada parada tem um solo diferente?</h2>
+      </div>
+      <button id="tr-close" type="button" aria-label="Fechar o transecto">FECHAR ✕</button>
+    </header>
+
+    <div class="tr-body">
+      <section class="tr-map" aria-label="Perfil do transecto">
+        <p class="tr-lead" id="tr-lead"></p>
+        <div class="tr-svg-wrap" id="tr-svg"></div>
+        <p class="tr-tip">Toque num marcador do perfil ou numa parada para comparar.</p>
+        <div class="tr-tabs" id="tr-tabs" role="tablist" aria-label="Paradas do transecto"></div>
+        <div class="tr-legend" id="tr-legend" aria-label="Fatores de formação"></div>
+        <p class="tr-model"><b>Modelo de Jenny:</b> <code id="tr-model"></code></p>
+        <ul class="tr-read">
+          <li><b>Topo</b> — a água percola e leva as bases embora.</li>
+          <li><b>Pediplano</b> — a água para, evapora e deixa os sais.</li>
+          <li><b>Encosta</b> — a água corre e leva o solo junto.</li>
+        </ul>
+      </section>
+
+      <section class="tr-info" id="tr-info" role="tabpanel" aria-live="polite"></section>
+    </div>
+
+    <footer class="tr-foot-wrap">
+      <details class="tr-compare" id="tr-compare"></details>
+      <p class="tr-foot" id="tr-foot"></p>
+    </footer>
+  </div>
+</div>
 
 <script src="js/vendor/three.min.js"></script>
 <script src="js/config.js"></script>
@@ -124,6 +172,8 @@
 <script src="js/puzzles.js"></script>
 <script src="js/sfx.js"></script>
 <script src="js/nano.js"></script>
+<script src="js/factors.js"></script>
+<script src="js/transect.js"></script>
 <script src="js/ui.js"></script>
 <script src="js/main.js"></script>
 </body>

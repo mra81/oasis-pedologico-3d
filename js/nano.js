@@ -54,6 +54,22 @@
     if (h) h.textContent = text;
   }
 
+  // liga a parada do Visor ao transecto: mostra o ecossistema e o fator
+  // dominante daquela posição da topossequência
+  function sayFactors(zoneId) {
+    const f = OP.FACTORS && OP.FACTORS.stops && OP.FACTORS.stops[zoneId];
+    const cad = $('#cad');
+    if (!f || !cad) return;
+    const entry = el('div', 'entry factors');
+    entry.innerHTML =
+      '<span class="tag">fatores de formação</span>' +
+      '<p><b>Parada ' + f.n + ' · ' + f.position + '</b> — ' + f.ecosystem + '</p>' +
+      '<p class="mini"><b>Dominante:</b> ' + f.dominant + '</p>' +
+      '<p class="mini">Clima, organismos, relevo, material e tempo estão no ' +
+      'transecto do mapa (tecla T).</p>';
+    cad.insertBefore(entry, cad.firstChild);
+  }
+
   function setStepUI() {
     const p = state.puzzle;
     const total = p.steps.length;
@@ -535,6 +551,7 @@
     setValues(p.values || {});
     setHint(p.hint || '');
     buildEq(p);
+    sayFactors(p.zone);
     say(p.brief, 'diagnóstico');
 
     state.step = 0;

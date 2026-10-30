@@ -28,16 +28,20 @@ OP.CONFIG = {
     {
       id: 'cerrado', name: 'Cerrado', puzzle: 'calagem',
       x: -40, z: 0, color: 0xff7a3d, icon: '🌾',
+      // posição na topossequência (usada nos rótulos e no transecto)
+      stop: 1, stopName: 'Topo', short: 'Cerrado',
       blurb: 'Latossolo vermelho, ácido, com Al³⁺ tóxico.',
     },
     {
       id: 'semiarido', name: 'Semiárido', puzzle: 'sodio',
       x: 0, z: 0, color: 0x38bdf8, icon: '🧂',
+      stop: 2, stopName: 'Pediplano', short: 'Semiárido',
       blurb: 'Crosta salina, sódio dispersando a argila.',
     },
     {
       id: 'encosta', name: 'Encosta', puzzle: 'agregacao',
       x: 40, z: 0, color: 0xfbbf24, icon: '⛰️',
+      stop: 3, stopName: 'Encosta', short: 'Encosta',
       blurb: 'Ravinas, selamento e água que não infiltra.',
     },
   ],

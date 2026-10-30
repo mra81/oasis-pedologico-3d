@@ -87,7 +87,12 @@
         p.classList.remove('show');
         return;
       }
-      $('#prompt-label').textContent = zone.name;
+      $('#prompt-label').textContent = zone.stop
+        ? 'Parada ' + zone.stop + ' · ' + zone.name
+        : zone.name;
+      p.title = zone.stopName
+        ? 'Parada ' + zone.stop + ' — ' + zone.stopName + '. ' + (zone.blurb || '')
+        : (zone.blurb || '');
       p.classList.add('show');
     },
 
@@ -134,5 +139,13 @@
   document.addEventListener('DOMContentLoaded', () => {
     const close = $('#debrief-close');
     if (close) close.addEventListener('click', () => OP.UI.hideDebrief());
+
+    const tr = $('#debrief-transect');
+    if (tr) {
+      tr.addEventListener('click', () => {
+        OP.UI.hideDebrief();
+        if (OP.Transect) OP.Transect.open();
+      });
+    }
   });
 })();

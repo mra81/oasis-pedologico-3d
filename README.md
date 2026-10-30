@@ -32,7 +32,8 @@ python3 -m http.server 8902
 | Andar | `WASD` / setas | joystick no canto inferior esquerdo |
 | Olhar / girar câmera | arrastar com o mouse | arrastar com o dedo no cenário |
 | Zoom da câmera | roda do mouse | (fixo, ajustado ao tamanho da tela) |
-| Analisar a área | `E` ou clique no aviso | toque no aviso "E · Cerrado" |
+| Analisar a área | `E` ou clique no aviso | toque no aviso "E · Parada 2 · Semiárido" |
+| Abrir/fechar o transecto | `T` ou botão 🧭 | botão 🧭 no HUD |
 | Arrastar peças no Visor | clique e arraste | arraste com o dedo |
 | Ver a ficha de uma peça | clique curto na peça | toque curto na peça |
 | Pedir dica | `H` ou botão 💡 | botão 💡 |
@@ -45,6 +46,12 @@ salvo em `localStorage` (`oasis-pedologico-3d:v1`).
 
 ## O que mudou nesta versão
 
+**Transecto explícito:** as três áreas agora são **paradas de uma topossequência**
+(1 Topo, 2 Pediplano, 3 Encosta), com rótulo flutuante em cada baliza, número no
+aviso de interação e um painel de **transecto** (`T` ou 🧭) com perfil topográfico,
+ecossistema de cada parada, os cinco fatores de formação e uma tabela comparativa.
+A Caderneta de cada puzzle ganhou a entrada "fatores de formação".
+
 **Visual menos "quadrado":** avatar arredondado (cápsulas e esferas, chapéu de palha,
 mochila), árvores e arbustos com copas esféricas, mandacarus em cápsula, crostas de
 sal irregulares com borda, pilhas de rejeito cônicas, trilha contínua com borda,
@@ -55,6 +62,30 @@ anel, halo e pilar de luz colorido.
 (toque curto), estequiometria em slots (3 OH⁻ por Al³⁺), etapa de lixiviação do Na⁺
 com os íons visíveis na drenagem, equação que acende por etapa, dica contextual,
 som sintetizado, vibração e partículas de sucesso.
+
+## Topossequência e fatores de formação
+
+O mapa não é um conjunto de três ilhas: é um **transecto**. O jogador sai do topo,
+atravessa o pediplano e chega à encosta, e o solo muda a cada parada. O painel
+**Transecto** (`T` ou 🧭) mostra o perfil topográfico, o ecossistema de cada parada
+e como os cinco fatores de formação atuam ali:
+
+```text
+S = f(clima, organismos, relevo, material de origem, tempo)
+```
+
+| Parada | Ecossistema | Solo | Fator dominante |
+|---|---|---|---|
+| **1 · Topo** | Cerrado — savana tropical sazonal | Latossolo Vermelho distrófico | clima (lixiviação) + tempo (intemperismo) |
+| **2 · Pediplano** | Caatinga — floresta tropical seca e caducifólia | Solo salino-sódico / Tecnossolo | clima (evaporação) + relevo (drenagem impedida) + material (sais) |
+| **3 · Encosta** | Encosta degradada — solo exposto e pasto ralo | Neossolo/Cambissolo raso em ravina | relevo (declive) + organismos + uso do solo |
+
+Numa **catena** clássica o clima e o material de origem são parecidos e só o relevo
+varia: topo perde, baixada recebe. Aqui o clima também muda de propósito, para
+comparar os cinco fatores lado a lado — o painel diz isso na abertura e no rodapé.
+Cada parada traz ainda a **reação** que o Visor resolve e a **conservação**
+correspondente, e a tabela "Comparar as 3 paradas" (cartões no celular) resume
+ecossistema, solo, clima, fator dominante e manejo.
 
 ## As três áreas
 
@@ -94,9 +125,11 @@ js/config.js        paleta, biomas, zonas, parâmetros de câmera/jogador
 js/world.js         terreno, mistura de biomas, luzes, props low poly, trilha
 js/player.js        avatar e controlador cinemático (WASD + joystick)
 js/camera.js        órbita em terceira pessoa + foco no Visor Nano
-js/zones.js         balizas das áreas (anel, halo, pilar de luz) e proximidade
+js/zones.js         balizas das áreas (anel, halo, pilar, rótulo da parada) e proximidade
 js/puzzles.js       dados científicos das três reações (etapas, equações, fichas)
 js/nano.js          motor do Visor: palco, drag-and-drop, slots, dicas, caderneta
+js/factors.js       conteúdo do transecto: 5 fatores, 3 paradas, reação e conservação
+js/transect.js      painel do transecto: SVG do perfil, abas, comparação, tecla T
 js/sfx.js           efeitos sonoros sintetizados (WebAudio) e vibração
 js/ui.js            HUD, aviso de interação, joystick, toasts, debrief
 js/main.js          bootstrap, loop, input, ligação zona → puzzle, persistência
@@ -129,11 +162,14 @@ sem tocar na lógica de puzzles.
   ~110 draw calls no desktop e ~80 no celular (60 fps em máquina de escritório).
 - Peças do Visor têm `role="button"` e `tabindex`; `Enter`/`Espaço` abre a ficha.
 - Botão de som com estado `aria-pressed`; dicas também por teclado (`H`).
+- Transecto: `T` abre/fecha, `Esc` fecha, abas com `role="tab"` e setas ←/→,
+  marcadores do perfil com `role="button"`; o jogador fica pausado com o painel aberto.
 
 ## Personalização rápida
 
 - Cores e nomes das áreas: `js/config.js` (`palette`, `zones`).
 - Textos, valores e etapas das reações: `js/puzzles.js`.
+- Transecto, fatores e paradas: `js/factors.js` (texto) e `js/transect.js` (SVG/UI).
 - Velocidade, distância da câmera: `OP.CONFIG.player.speed` e `OP.CONFIG.camera`.
 - Progresso salvo: `localStorage['oasis-pedologico-3d:v1']`.
 

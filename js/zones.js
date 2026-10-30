@@ -57,6 +57,68 @@
     return beamTex;
   }
 
+  // rótulo da parada: pílula escura com número, posição e bioma.
+  // Desenhado em canvas porque o texto 3D precisa ser legível a 12 m.
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function labelTexture(stop, top, name, hex) {
+    const W = 512;
+    const H = 168;
+    const c = document.createElement('canvas');
+    c.width = W;
+    c.height = H;
+    const ctx = c.getContext('2d');
+    const col = new THREE.Color(hex).getStyle();
+
+    // pílula
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,.55)';
+    ctx.shadowBlur = 14;
+    ctx.shadowOffsetY = 5;
+    ctx.fillStyle = 'rgba(7,13,26,.9)';
+    roundRect(ctx, 10, 20, W - 20, H - 40, 56);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.strokeStyle = col;
+    ctx.lineWidth = 7;
+    roundRect(ctx, 10, 20, W - 20, H - 40, 56);
+    ctx.stroke();
+
+    // número da parada
+    ctx.fillStyle = col;
+    ctx.beginPath();
+    ctx.arc(76, H / 2, 40, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#06101f';
+    ctx.font = 'bold 46px Menlo, monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(String(stop), 76, H / 2 + 2);
+
+    // textos
+    ctx.textAlign = 'left';
+    ctx.fillStyle = col;
+    ctx.font = 'bold 30px Menlo, monospace';
+    ctx.fillText(top.toUpperCase(), 132, 68);
+    ctx.fillStyle = '#e2e8f0';
+    ctx.font = 'bold 40px Menlo, monospace';
+    ctx.fillText(name, 132, 114);
+
+    const t = new THREE.CanvasTexture(c);
+    t.needsUpdate = true;
+    if (THREE.sRGBEncoding) t.encoding = THREE.sRGBEncoding;
+    return t;
+  }
+
   OP.Zones = {
     init(scene, opts) {
       reduceMotion = !!(opts && opts.reduceMotion);
@@ -142,8 +204,18 @@
         spot.position.y = 0.1;
         g.add(spot);
 
+        // rótulo da parada do transecto (1 Topo · Cerrado)
+        const label = new THREE.Sprite(new THREE.SpriteMaterial({
+          map: labelTexture(z.stop || 0, z.stopName || '', z.short || z.name, z.color),
+          transparent: true, depthWrite: false, fog: false,
+        }));
+        label.scale.set(5, 1.64, 1);
+        label.position.set(0, 3.35, 0);
+        label.center.set(0.5, 0);
+        g.add(label);
+
         items.push({
-          zone: z, group: g, ring, inner, disc, beam, crystal, halo,
+          zone: z, group: g, ring, inner, disc, beam, crystal, halo, label,
           baseY: 2.5, solved: false,
         });
       });
@@ -192,6 +264,14 @@
       }
       it.beam.material.color.copy(green);
       it.crystal.scale.set(1.2, 1.1, 1.2);
+
+      if (it.label) {
+        it.label.material.map.dispose();
+        it.label.material.map = labelTexture(
+          it.zone.stop || 0, it.zone.stopName || '', it.zone.short || it.zone.name, 0x22c55e
+        );
+        it.label.material.needsUpdate = true;
+      }
     },
   };
 })();

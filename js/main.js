@@ -121,7 +121,7 @@
       keys[e.code] = true;
       if (e.code === 'KeyE') {
         e.preventDefault();
-        if (!paused && near) openZone(near);
+        if (!paused && !(OP.Transect && OP.Transect.isOpen()) && near) openZone(near);
       }
     });
     window.addEventListener('keyup', (e) => { keys[e.code] = false; });
@@ -164,7 +164,7 @@
     last = now;
     const t = now / 1000;
 
-    const active = started && !paused && !document.hidden;
+    const active = started && !paused && !(OP.Transect && OP.Transect.isOpen()) && !document.hidden;
     const input = active ? readInput() : { x: 0, z: 0 };
 
     OP.Player.update(dt, input, OP.CameraRig.yaw, !active);
@@ -197,6 +197,19 @@
     });
     OP.UI.setProgress(solved);
     solved.forEach((id) => OP.Zones.markSolved(id));
+
+    // transecto: pausa o jogador enquanto o painel está aberto
+    OP.Transect.init({
+      onOpen() {
+        paused = true;
+        near = null;
+        OP.UI.setNear(null);
+      },
+      onClose() {
+        if (started && !OP.Nano.isOpen()) paused = false;
+      },
+    });
+
     bindInput();
 
     if (solved.length >= C.zones.length) {

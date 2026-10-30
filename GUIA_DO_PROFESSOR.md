@@ -23,6 +23,9 @@ Ao final, o estudante deve ser capaz de:
 5. **Justificar uma prática de manejo citando o processo**, e não o produto.
 6. **Reconhecer que conservação do solo é conservação da reação**: sem estrutura e sem
    cobertura, o corretivo aplicado se perde antes de reagir.
+7. **Explicar a topossequência**: por que topo, pediplano e encosta, sob o mesmo
+   relevo regional, sustentam ecossistemas e solos diferentes — usando os cinco
+   fatores de formação (`S = f(clima, organismos, relevo, material de origem, tempo)`).
 
 ## 2. O que cada área ensina
 
@@ -31,6 +34,22 @@ Ao final, o estudante deve ser capaz de:
 | **Cerrado** — Latossolo vermelho distrófico | Acidez trocável, toxidez por Al³⁺, precipitação como Al(OH)₃, saturação por bases | "Calagem é adubar" e "basta olhar o pH" |
 | **Semiárido** — solo salino-sódico + mineração | PST, dispersão de argila, troca catiônica com Ca²⁺, floculação, drenagem | "Sódio se resolve lavando com chuva" |
 | **Encosta** — ravina e selamento | Agregação, exsudatos, hifas e glomalina, estabilidade de agregados em água | "Erosão se resolve com obra de contenção" |
+
+### As três paradas do transecto
+
+As áreas do mapa são **paradas de uma topossequência** (tecla `T` ou botão 🧭 abre o
+painel com o perfil topográfico). Use a tabela para conduzir a comparação:
+
+| Parada | Ecossistema | Solo | Clima | Relevo | Material | Tempo | Fator dominante |
+|---|---|---|---|---|---|---|---|
+| **1 · Topo** | Cerrado — savana tropical sazonal | Latossolo Vermelho distrófico | 1.400 mm, verão chuvoso | topo bem drenado | rochas ácidas, pobres em bases | paisagem antiga, perfil > 2 m | clima + tempo |
+| **2 · Pediplano** | Caatinga — floresta tropical seca | Solo salino-sódico / Tecnossolo | 600 mm irregular, ETP ~2.200 mm | superfície aplainada, drenagem impedida | sedimentos com sódio + rejeito | jovem (décadas) | clima + relevo + material |
+| **3 · Encosta** | Encosta degradada — pasto ralo | Neossolo/Cambissolo raso em ravina | chuva concentrada e intensa | declive longo, ravina ativa | colúvio e saprolito | degradação rápida, recuperação lenta | relevo + organismos + uso |
+
+**Ponto de método:** numa catena clássica, clima e material de origem são
+semelhantes e só o relevo varia (topo perde, baixada recebe). Aqui o clima também
+muda de propósito, para que os cinco fatores apareçam lado a lado. Diga isso à
+turma: o jogo é um transecto **didático**, não um levantamento de campo.
 
 ### Números usados no jogo
 
@@ -48,8 +67,8 @@ não substituem laudo.
 | Tempo | O que fazer |
 |---|---|
 | 0–3 min | Abra o jogo projetado e leia a tela inicial: "três áreas degradadas; em cada uma, uma reação que ninguém vê decide se a planta cresce". |
-| 3–6 min | Mostre os controles e deixe a turma andar 1 min. Peça que observem a **cor do solo** e a **vegetação** de cada bioma. |
-| 6–28 min | Jogo em duplas. Circule e pergunte **"o que essa peça faz na argila?"** antes de deixar arrastar. |
+| 3–6 min | Abra o **transecto** (`T`) projetado: mostre o perfil, as três paradas e o modelo `S = f(...)`. Pergunte o que muda do topo para a encosta. Depois mostre os controles e deixe a turma andar 1 min, observando **cor do solo** e **vegetação**. |
+| 6–28 min | Jogo em duplas. Circule e pergunte **"o que essa peça faz na argila?"** antes de deixar arrastar. Ao abrir cada Visor, peça que leiam a entrada **fatores de formação** da Caderneta e liguem a reação ao fator dominante daquela parada. |
 | 28–30 min | Todos fecham o Visor da última área → o **Debrief** aparece com as três lições. |
 | 30–47 min | Debrief dirigido (perguntas abaixo). |
 | 47–50 min | Fechamento: cada dupla escreve **uma frase** ligando uma reação a uma prática de campo. |
@@ -92,6 +111,11 @@ continua de onde parou.
 - Por que o gesso não substitui o calcário no Cerrado?
 - O que acontece com a argila quando o Na⁺ ocupa o complexo?
 
+**Topossequência (média)**
+- Por que o topo e o pediplano, tão próximos, têm solos tão diferentes? Cite dois fatores.
+- O que a encosta "exporta" para a baixada — e o que isso tem a ver com a ravina?
+- Se o clima do pediplano fosse úmido, o que aconteceria com os sais e com o PST?
+
 **Transferência (média)**
 - O laudo do Cerrado tem V% 22. Se você aplicasse apenas a dose para pH 6,0 sem
   considerar a acidez trocável, o que poderia dar errado?
@@ -117,6 +141,9 @@ continua de onde parou.
 | "Gesso = calcário" | Gesso fornece Ca²⁺ sem neutralizar acidez; o texto do puzzle insiste nisso. |
 | "Erosão se resolve com muro" | O puzzle fecha em estrutura: agregado estável → infiltração. |
 | "O que não se vê não importa" | É a tese do jogo: a reação na argila decide a paisagem. |
+| "Clima explica tudo" | O transecto mostra relevo e material decidindo salinidade e erosão no mesmo clima regional. |
+| "Topo e baixada são o mesmo solo" | Topo lixivia e perde; pediplano acumula sais; encosta perde solo. A catena explica a diferença. |
+| "Todo solo jovem é raso e todo solo velho é profundo" | O Tecnossolo é jovem e o Latossolo é velho, mas o que muda o perfil é a combinação dos cinco fatores. |
 
 ## 7. Avaliação sugerida
 
@@ -127,6 +154,9 @@ O jogo não dá nota. Sugestões de evidência de aprendizagem:
 - **Questão de transferência:** dado um laudo novo (pH 5,1 · Al³⁺ 0,8 · V% 31% ·
   PST 4%), pedir a sequência de manejo e a justificativa.
 - **Mapa conceitual:** ligar sintoma → mecanismo → prática → indicador de sucesso.
+- **Transecto em 5 linhas:** escolher uma parada e escrever como clima, organismos,
+  relevo, material e tempo agem nela — e qual fator domina. O painel `T` serve de
+  consulta, mas a resposta precisa ser escrita com as próprias palavras.
 - **Rubrica rápida (0–3):** identifica o mecanismo; escolhe a peça certa; explica a
   reação com a equação; cita um indicador para verificar o resultado.
 
@@ -136,7 +166,7 @@ O jogo não dá nota. Sugestões de evidência de aprendizagem:
   que cobre química, física e conservação com seis áreas.
 - **Acessibilidade:** `prefers-reduced-motion` desliga animações; todos os puzzles
   funcionam por teclado + mouse e por toque. `Enter`/`Espaço` abre a ficha da peça,
-  `H` pede dica e o botão 🔊 controla o som.
+  `H` pede dica, `T` abre o transecto (abas navegáveis com ←/→) e o botão 🔊 controla o som.
 - **Projeção:** o Visor Nano foi desenhado para leitura a distância (fonte mono,
   contraste alto). Se a turma estiver longe, aumente o zoom do navegador para 125%.
 
