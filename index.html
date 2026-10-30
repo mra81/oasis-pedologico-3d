@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0B132B" />
+<title>Oásis Pedológico 3D — Missões de Solo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+
+<!--
+  Bibliotecas (todas locais, o jogo abre por duplo clique, sem servidor):
+    js/vendor/three.min.js   Three.js r149 (MIT) — WebGL, câmera, luz, geometria
+  Não há engine de física: o controlador é cinemático e usa a altura do terreno
+  (OP.World.heightAt). Se quiser corpos rígidos depois, cannon-es entra no lugar
+  sem mexer na lógica de puzzles.
+-->
+</head>
+<body>
+
+<canvas id="world" role="img" aria-label="Fazenda 3D com três biomas degradados para recuperar"></canvas>
+<div id="vignette" aria-hidden="true"></div>
+
+<!-- ================= HUD ================= -->
+<div id="hud">
+  <div class="hud-box" id="hud-main">
+    <div class="kicker">Serious game 3D · gênese, mineralogia e química do solo</div>
+    <div id="hud-title">OÁSIS PEDOLÓGICO 3D</div>
+    <div id="hud-sub">Ande até uma área marcada e analise no Visor Nano.</div>
+  </div>
+  <div class="hud-right">
+    <div class="hud-box" id="progress">
+      <div id="pips" aria-hidden="true"></div>
+      <div id="counter">0 / 3</div>
+    </div>
+    <button id="reset" type="button" title="Reiniciar progresso" aria-label="Reiniciar progresso">↺</button>
+  </div>
+</div>
+
+<!-- ================= aviso de interação ================= -->
+<button id="prompt" type="button">
+  <kbd>E</kbd>
+  <span id="prompt-label">Analisar solo</span>
+</button>
+
+<!-- ================= joystick (toque) ================= -->
+<div id="stick" aria-hidden="true"><div id="knob"></div></div>
+
+<!-- ================= VISOR NANO ================= -->
+<div id="nano" aria-hidden="true">
+  <header id="nano-head">
+    <div class="titles">
+      <span class="brand">NANO<span>VISOR</span> OS v3.0</span>
+      <span class="mod" id="nano-mod">—</span>
+      <span class="place" id="nano-place"></span>
+    </div>
+    <div class="head-actions">
+      <button id="nano-audio" type="button" aria-pressed="true" title="Ligar/desligar som">🔊</button>
+      <button id="nano-close" type="button">DESLIGAR</button>
+    </div>
+  </header>
+
+  <div id="nano-body">
+    <section id="nano-stage" aria-label="Palco da reação química"></section>
+
+    <aside id="nano-side">
+      <div class="step-line">
+        <span id="nano-step">Etapa 1 de 3</span>
+        <div id="nano-bar"><b></b></div>
+      </div>
+      <div id="nano-hint-row">
+        <div id="nano-hint"></div>
+        <button id="nano-hint-btn" type="button" title="Mostrar dica (H)" aria-label="Mostrar dica">💡</button>
+      </div>
+      <div id="nano-eq"></div>
+      <h2>Caderneta de campo</h2>
+      <div id="cad"></div>
+      <div id="nano-values"></div>
+      <button id="nano-reset" class="btn ghost" type="button">Recomeçar reação</button>
+    </aside>
+  </div>
+</div>
+
+<!-- ================= abertura ================= -->
+<div id="start">
+  <div class="card">
+    <span class="kicker">Serious game 3D · agronomia</span>
+    <h1>OÁSIS PEDOLÓGICO 3D</h1>
+    <p>Três áreas degradadas. Em cada uma, uma reação que ninguém vê a olho nu decide
+       se a planta cresce, se a água infiltra e se o solo fica.</p>
+    <ul>
+      <li><b>Andar</b> — WASD ou setas <span class="mob">/ joystick</span></li>
+      <li><b>Olhar</b> — arraste com o mouse <span class="mob">ou com o dedo</span></li>
+      <li><b>Analisar</b> — chegue na área e aperte <kbd>E</kbd> <span class="mob">/ toque no aviso</span></li>
+      <li><b>No Visor</b> — arraste as peças; toque numa peça para ver a ficha; <kbd>H</kbd> pede dica</li>
+    </ul>
+    <button id="start-btn" class="btn ok" type="button">Começar</button>
+  </div>
+</div>
+
+<!-- ================= debrief ================= -->
+<div id="debrief" aria-hidden="true">
+  <div class="card">
+    <h2>Debrief · o que você recuperou</h2>
+    <div id="recap"></div>
+    <p class="q">Conservar solo é conservar a reação: pH, sódio e agregação decidem se a água
+      infiltra ou se o solo vai embora na enxurrada.</p>
+    <button id="debrief-close" class="btn" type="button">Voltar ao mapa</button>
+  </div>
+</div>
+
+<div id="chip-tip" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/vendor/three.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/world.js"></script>
+<script src="js/player.js"></script>
+<script src="js/camera.js"></script>
+<script src="js/zones.js"></script>
+<script src="js/puzzles.js"></script>
+<script src="js/sfx.js"></script>
+<script src="js/nano.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
