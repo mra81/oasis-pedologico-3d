@@ -856,3 +856,168 @@ html.reduce-motion *,html.reduce-motion *::before,html.reduce-motion *::after{
   background:var(--lime);opacity:.7;
 }
 .tr-read b{color:#cbd5e1}
+
+/* =========================================================
+   v5 — celular: instalação, toque, paisagem e leitura
+   ========================================================= */
+
+/* altura real do navegador móvel (barra de endereço) e sem "puxar para recarregar" */
+html,body{height:100%;height:100dvh;overscroll-behavior:none}
+body{-webkit-touch-callout:none}
+button{touch-action:manipulation}
+#cad,.tr-info,.tr-map,.tr-card,#nano-side{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+
+/* instalação do app */
+.install-hint{
+  margin:12px 0 0;padding:8px 10px;font-size:.66rem;line-height:1.55;color:#94a3b8;
+  background:#0e1a2e;border:1px dashed #334155;border-radius:8px;
+}
+.install-hint b{color:#d9f99d}
+#install-btn{border-color:rgba(163,230,53,.5);color:#d9f99d}
+
+/* alvos de toque e texto mínimo confortável */
+@media (pointer: coarse){
+  #hud-title{font-size:.78rem}
+  #counter{font-size:.72rem}
+  .kicker{font-size:.56rem}
+  #prompt{padding:12px 16px}
+  #prompt span{font-size:.76rem}
+  #reset,#transect-btn{min-width:44px;min-height:44px;font-size:1.05rem}
+  .chip{
+    min-height:44px;display:flex;align-items:center;justify-content:center;
+    font-size:.78rem;
+  }
+  .tray .chip{min-height:44px}
+  #nano-close,#nano-audio{min-height:44px}
+  #nano-hint-btn{width:44px;height:44px}
+  .btn{min-height:48px}
+  #nano-side h2{font-size:.72rem}
+  #cad .entry{font-size:.78rem;line-height:1.6}
+  #nano-hint{font-size:.76rem}
+  #nano-eq{font-size:.72rem}
+  .val{font-size:.66rem}
+  .tr-tab{min-height:54px}
+  .tr-chip{min-height:38px;font-size:.66rem}
+  .tr-lead{font-size:.72rem}
+  .tr-sum{font-size:.76rem}
+  .tr-factor p,.tr-callout{font-size:.72rem}
+  .tr-info-head h3{font-size:1.05rem}
+  .tr-info-head h3 small{font-size:.66rem}
+  .tr-eco,.tr-soil{font-size:.72rem}
+  .tr-read li{font-size:.7rem}
+  .tr-model{font-size:.66rem}
+}
+
+/* celular deitado: Visor lado a lado e transecto em duas colunas */
+@media (orientation: landscape) and (max-height: 540px){
+  #hud{padding:6px;padding-top:max(6px,env(safe-area-inset-top))}
+  .hud-box{padding:6px 10px}
+  #hud-title{font-size:.62rem}
+  #hud-sub{display:none}
+  #prompt{bottom:calc(10px + env(safe-area-inset-bottom))}
+  #stick{
+    width:112px;height:112px;left:10px;
+    bottom:calc(10px + env(safe-area-inset-bottom));
+  }
+  #knob{width:48px;height:48px;margin:-24px 0 0 -24px}
+
+  #nano-head{padding:6px 10px;padding-top:max(6px,env(safe-area-inset-top))}
+  .brand{font-size:.56rem}
+  #nano-body{flex-direction:row}
+  #nano-stage{flex:1 1 auto;padding:8px;min-height:0}
+  #nano-side{
+    flex:0 0 46%;width:46%;gap:6px;padding:8px;
+    padding-bottom:calc(8px + env(safe-area-inset-bottom));
+    border-left:1px solid #1e293b;border-top:none;
+  }
+  .board{grid-template-columns:1fr 132px;grid-template-rows:1fr;max-height:none;gap:8px}
+  .scene{min-height:0;border-radius:14px}
+  .tray-wrap{
+    flex-direction:column;border-left:1px solid #1e293b;border-top:none;
+    padding-left:8px;padding-top:0;
+  }
+  .tray{flex-direction:column;overflow-y:auto}
+  .tray .chip{white-space:nowrap;padding:8px 10px}
+  .tray-help,.tray-title{display:none}
+  #nano-side h2{display:none}
+  .step-line{font-size:.56rem}
+  #nano-hint{font-size:.62rem}
+  #nano-eq{font-size:.6rem;padding:5px 7px}
+  .val{font-size:.56rem;padding:3px 6px}
+  #nano-reset{min-height:38px;padding:8px 10px;font-size:.64rem}
+  #nano-close{padding:7px 10px;font-size:.62rem;min-height:38px}
+  #nano-audio{min-height:38px;padding:6px 8px}
+  #nano-hint-btn{width:34px;height:34px}
+  #nano-hint-btn{font-size:.8rem}
+
+  #start .card{padding:14px 18px;max-height:94vh}
+  #start .card h1{font-size:.9rem;margin:6px 0 10px}
+  #start .card p{font-size:.72rem;margin-bottom:10px}
+  #start .card ul{margin-bottom:12px}
+  #start .card li{font-size:.7rem;line-height:1.5}
+  #start .card p.tr-hint{margin-bottom:10px;font-size:.68rem}
+
+  .tr-card{display:flex;flex-direction:column;max-height:96vh;overflow:hidden}
+  .tr-head{padding:7px 12px}
+  .tr-head h2{font-size:.76rem;margin-top:3px}
+  #tr-close{min-height:34px;padding:6px 10px;font-size:.6rem}
+  .tr-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);overflow:hidden}
+  .tr-map{overflow-y:auto;border-right:1px solid #1e293b;border-bottom:none;padding:8px 12px}
+  .tr-info{overflow-y:auto;padding:8px 12px}
+  .tr-lead{font-size:.6rem;margin-bottom:6px}
+  .tr-svg-wrap svg{max-height:150px}
+  .tr-tip{display:none}
+  .tr-tabs{margin:6px 0;gap:6px}
+  .tr-tab{padding:6px 8px}
+  .tr-read{display:none}
+  .tr-model{font-size:.56rem}
+  .tr-legend{display:none}
+  .tr-foot-wrap{max-height:20vh;padding:6px 12px}
+  .tr-foot{display:none}
+}
+
+/* retrato: mais espaço para a Caderneta (o feedback é o coração do puzzle) */
+@media (max-width:900px) and (orientation: portrait){
+  #nano-stage{flex:0 0 min(42vh, 340px)}
+  #nano-side{overflow-y:auto}
+  #cad{min-height:120px}
+  #nano-eq{font-size:.66rem}
+  #nano-values{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
+  #nano-values .val{flex:0 0 auto;white-space:nowrap}
+}
+
+/* paisagem: sem introdução longa, para as abas caberem sem rolagem */
+@media (orientation: landscape) and (max-height: 540px){
+  .tr-lead{display:none}
+  .tr-svg-wrap svg{max-height:132px}
+}
+
+/* retrato curto (iPhone SE, 360x640): tudo do puzzle tem de caber sem rolar */
+@media (max-width:900px) and (orientation: portrait) and (max-height: 720px){
+  #nano-head{padding:7px 12px;padding-top:max(7px,env(safe-area-inset-top))}
+  #nano-body #nano-stage{flex:0 0 auto;padding:8px;gap:6px}
+  .scene{min-height:0;height:min(35vh, 250px)}
+  #nano-side{gap:5px;padding:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom))}
+  #nano-side h2{display:none}
+  #nano-hint{font-size:.68rem}
+  #nano-hint-btn{width:40px;height:40px}
+  #nano-eq{font-size:.56rem;line-height:1.5;padding:4px 7px}
+  #cad{min-height:78px;max-height:26vh;flex:1 1 auto}
+  #cad .entry{padding:8px}
+  #cad .entry .tag{margin-bottom:4px}
+  #nano-values{flex:0 0 auto}
+  #nano-reset{flex:0 0 auto;min-height:36px;font-size:.68rem;padding:6px 10px}
+  .tray .chip{min-height:40px;font-size:.72rem;padding:7px 11px}
+}
+@media (max-width:900px) and (orientation: portrait) and (max-height: 720px){
+  .site{width:56px!important;height:56px!important}
+}
+
+/* paisagem baixa (667x375, 640x360): bancada mais estreita e íons menores */
+@media (orientation: landscape) and (max-height: 420px){
+  .board{grid-template-columns:1fr 96px;gap:6px}
+  .tray .chip{min-height:44px;font-size:.64rem;padding:6px 6px}
+  .site{width:48px!important;height:48px!important}
+  .scene .chip{font-size:.6rem;padding:5px 8px}
+  .zone-label{font-size:.46rem}
+}

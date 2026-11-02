@@ -13,6 +13,10 @@
   let last = 0;
   let started = false;
   let paused = true;
+  let dprCap = 2;
+  let quality = 0;
+  let perfAcc = 0;
+  let perfN = 0;
   let near = null;
   let pendingDebrief = false;
   let solved = [];
@@ -43,9 +47,11 @@
     // clareia tudo (o "lavado"). Com legacyMode=false o pipeline fica correto.
     if (THREE.ColorManagement) THREE.ColorManagement.legacyMode = false;
 
-    renderer = new THREE.WebGLRenderer({ canvas: $('#world'), antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer = new THREE.WebGLRenderer({
+      canvas: $('#world'), antialias: true, powerPreference: 'high-performance',
+    });
+    // no celular, 2x de densidade custa caro e não melhora a leitura
+    dprCap = mobile ? 1.75 : 2;
     if (THREE.sRGBEncoding) renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
@@ -56,6 +62,7 @@
     camera = new THREE.PerspectiveCamera(
       C.camera.fov, window.innerWidth / window.innerHeight, 0.1, 420
     );
+    applySize();
 
     OP.World.init(scene, { mobile });
     OP.Player.init(scene, { blob: mobile });
@@ -65,11 +72,33 @@
     // atalho de depuração/telemetria (não usado pelo jogo)
     OP.debug = { renderer, scene, camera };
 
-    window.addEventListener('resize', () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-    });
+    window.addEventListener('resize', applySize);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', applySize);
+    document.addEventListener('visibilitychange', () => { perfAcc = 0; perfN = 0; });
+  }
+
+  function applySize() {
+    if (!renderer || !camera) return;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, dprCap));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+  }
+
+  // se o aparelho não segura 40 fps, baixa a resolução em dois degraus
+  function watchPerf(seconds) {
+    if (!started || paused) return;
+    perfAcc += Math.min(seconds, 0.25);
+    perfN += 1;
+    if (perfAcc < 2.5) return;
+    const ms = (perfAcc / perfN) * 1000;
+    perfAcc = 0;
+    perfN = 0;
+    if (ms > 24 && quality < 2) {
+      quality += 1;
+      dprCap = quality === 1 ? 1.35 : 1;
+      applySize();
+    }
   }
 
   /* ---------------- fluxo ---------------- */
@@ -160,9 +189,11 @@
 
   /* ---------------- loop ---------------- */
   function frame(now) {
-    const dt = Math.min((now - last) / 1000, 0.05);
+    const raw = (now - last) / 1000;
+    const dt = Math.min(raw, 0.05);
     last = now;
     const t = now / 1000;
+    watchPerf(raw);
 
     const active = started && !paused && !(OP.Transect && OP.Transect.isOpen()) && !document.hidden;
     const input = active ? readInput() : { x: 0, z: 0 };

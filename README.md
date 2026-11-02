@@ -25,6 +25,24 @@ python3 -m http.server 8902
 # celular: http://<ip-da-máquina>:8902
 ```
 
+> Em `file://` o jogo roda normalmente, mas o service worker não registra (o
+> navegador não permite). Instalação e cache offline exigem `http(s)` — use o
+> deploy da Vercel ou o servidor local acima.
+
+## Instalar no celular (PWA)
+
+O jogo é um PWA: instala na tela inicial, abre em tela cheia e funciona offline
+depois da primeira visita.
+
+- **Android (Chrome/Edge):** abra o link, toque em **📲 Instalar no celular**
+  (ou menu ⋮ → "Instalar aplicativo"). O botão só aparece quando o navegador
+  oferece a instalação.
+- **iPhone/iPad (Safari):** toque em **Compartilhar** → **Adicionar à Tela de
+  Início**. O iOS não expõe instalação por botão; a dica fica na tela inicial.
+- **Offline:** o service worker guarda HTML, CSS, scripts, fontes de ícone e
+  manifest na primeira carga. Depois disso o jogo abre sem rede. Ao publicar uma
+  versão nova, troque `VERSION` em `sw.js` para invalidar o cache.
+
 ## Controles
 
 | Ação | Desktop | Celular |
@@ -40,6 +58,8 @@ python3 -m http.server 8902
 | Ligar/desligar som | botão 🔊 no Visor | botão 🔊 no Visor |
 | Fechar o Visor | `ESC` ou "DESLIGAR" | "DESLIGAR" |
 | Reiniciar progresso | botão ↺ (pede confirmação) | idem |
+| Instalar o app | — | 📲 na abertura (Android) ou Compartilhar → Adicionar à Tela de Início (iOS) |
+| Jogar em paisagem | — | gire o celular: Visor lado a lado e transecto em duas colunas |
 
 O aviso de análise só aparece **dentro** do anel de cada área. O progresso fica
 salvo em `localStorage` (`oasis-pedologico-3d:v1`).
@@ -132,7 +152,11 @@ js/factors.js       conteúdo do transecto: 5 fatores, 3 paradas, reação e con
 js/transect.js      painel do transecto: SVG do perfil, abas, comparação, tecla T
 js/sfx.js           efeitos sonoros sintetizados (WebAudio) e vibração
 js/ui.js            HUD, aviso de interação, joystick, toasts, debrief
+js/pwa.js           registro do service worker e instalação no celular
 js/main.js          bootstrap, loop, input, ligação zona → puzzle, persistência
+sw.js               cache offline versionado (troque VERSION a cada publicação)
+manifest.webmanifest  nome, ícones e modo standalone do app
+icons/              ícones 192/512, maskable e apple-touch-icon
 ```
 
 **A lógica 3D não conhece a lógica de puzzle.** `puzzles.js` só descreve dados e
@@ -157,7 +181,13 @@ sem tocar na lógica de puzzles.
 ## Acessibilidade e desempenho
 
 - `prefers-reduced-motion`: desliga bobbing, pulsos e animações CSS.
-- Alvos de toque com no mínimo 44 px; layout do Visor em coluna no celular.
+- Alvos de toque com no mínimo 44 px e texto ≥ 12 px em `pointer: coarse`.
+- Layout próprio para celular: retrato com o Visor em coluna (Caderneta sempre
+  visível, inclusive em 360×640) e paisagem com palco e Caderneta lado a lado.
+- `100dvh`, `overscroll-behavior: none` e `touch-action: manipulation`: sem
+  pull-to-refresh no meio de uma reação e sem barra de endereço cortando o HUD.
+- Qualidade adaptativa: DPR limitado a 1,75 no celular (2 no desktop) e dois
+  degraus de queda (1,35 e 1) se o frame médio passar de 24 ms.
 - Sombras desligadas automaticamente em telas de toque; ~40 mil triângulos,
   ~110 draw calls no desktop e ~80 no celular (60 fps em máquina de escritório).
 - Peças do Visor têm `role="button"` e `tabindex`; `Enter`/`Espaço` abre a ficha.
@@ -176,4 +206,5 @@ sem tocar na lógica de puzzles.
 ## Arquivos relacionados
 
 - `GUIA_DO_PROFESSOR.md` — roteiro de aula, respostas, erros conceituais comuns.
+- `https://oasis-pedologico-3d.vercel.app` — versão publicada (instalável no celular).
 - `../oasis-pedologico-2/` — versão 2D com seis áreas (outro jogo, independente).

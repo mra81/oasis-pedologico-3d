@@ -6,7 +6,9 @@
 agregação e estrutura, noções de erosão
 **Formato:** individual, duplas ou trios (duplas funcionam melhor: um pilota, o outro lê a Caderneta)
 **Equipamento:** navegador atualizado com WebGL. Roda em notebook, Chromebook e celular;
-abre por duplo clique no arquivo `index.html`, sem internet.
+abre por duplo clique no arquivo `index.html`, sem internet. No celular, instale o
+PWA pela tela inicial (Android: **📲 Instalar**; iPhone: **Compartilhar → Adicionar
+à Tela de Início**) para jogar em tela cheia e offline.
 
 ---
 
@@ -169,6 +171,13 @@ O jogo não dá nota. Sugestões de evidência de aprendizagem:
   `H` pede dica, `T` abre o transecto (abas navegáveis com ←/→) e o botão 🔊 controla o som.
 - **Projeção:** o Visor Nano foi desenhado para leitura a distância (fonte mono,
   contraste alto). Se a turma estiver longe, aumente o zoom do navegador para 125%.
+- **Celular:** os puzzles funcionam inteiros por toque, inclusive em telas de
+  360×640; a Caderneta fica sempre visível no retrato e o botão 💡 abre a dica.
+  Peça que girem o aparelho: em paisagem o palco e a Caderneta ficam lado a lado,
+  o que ajuda a comparar a reação com o diagnóstico. O jogo instala na tela
+  inicial e continua funcionando sem internet depois da primeira carga.
+- **Aparelho antigo/travado:** o jogo baixa a resolução sozinho se o frame passar
+  de 24 ms; se ainda travar, feche outras abas ou use o computador da sala.
 
 ## 9. Referências de apoio
 

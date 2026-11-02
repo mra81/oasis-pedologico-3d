@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Oásis Pedológico 3D">
+  <defs>
+    <clipPath id="tile"><rect width="512" height="512" rx="112"/></clipPath>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17395c"/>
+      <stop offset="1" stop-color="#0b132b"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect width="512" height="512" fill="url(#sky)"/>
+    <circle cx="396" cy="116" r="42" fill="#FFD700" opacity=".85"/>
+
+    <!-- horizontes do solo -->
+    <path d="M0 268 Q120 236 240 262 T512 250 V512 H0Z" fill="#a8431f"/>
+    <path d="M0 316 Q140 292 280 314 T512 304 V512 H0Z" fill="#b3a17c"/>
+    <path d="M0 372 Q160 350 320 370 T512 362 V512 H0Z" fill="#7d5f3c"/>
+
+    <!-- raízes -->
+    <path d="M256 300c-34 26-52 52-58 86M256 300c34 26 52 52 58 86" stroke="#e2e8f0"
+      stroke-width="10" opacity=".32" stroke-linecap="round" fill="none"/>
+
+    <!-- planta -->
+    <path d="M256 302V150" stroke="#22c55e" stroke-width="26" stroke-linecap="round"/>
+    <path d="M256 214C196 214 156 176 150 118c64 0 106 40 106 96z" fill="#a3e635"/>
+    <path d="M256 262c52 0 94-38 100-96-52 0-100 38-100 96z" fill="#4ade80"/>
+  </g>
+</svg>
