@@ -2,7 +2,7 @@
    SERVICE WORKER — jogo offline no celular
    Ao publicar uma versão nova, troque VERSION para invalidar o cache.
    ========================================================= */
-const VERSION = 'oasis-3d-2026-11-02-2';
+const VERSION = 'oasis-3d-2026-11-02-3';
 
 const ASSETS = [
   './',

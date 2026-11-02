@@ -1021,3 +1021,11 @@ button{touch-action:manipulation}
   .scene .chip{font-size:.6rem;padding:5px 8px}
   .zone-label{font-size:.46rem}
 }
+
+/* retrato estreito: a fileira de valores rola; a borda esmaecida avisa que há mais */
+@media (max-width: 430px) and (orientation: portrait){
+  #nano-values{
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 88%,rgba(0,0,0,.2) 100%);
+    mask-image:linear-gradient(90deg,#000 0,#000 88%,rgba(0,0,0,.2) 100%);
+  }
+}
